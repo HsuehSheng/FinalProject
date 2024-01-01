@@ -1,2 +1,6 @@
-﻿  function_2.c
-  FinalProject.vcxproj -> C:\c_code\FinalProject\FinalProject\Debug\FinalProject.exe
+﻿  function_1.c
+  function_2.c
+  Main.c
+  正在產生程式碼...
+  LINK : 最後的累加連結找不到或未建置 C:\Users\USER\Desktop\FinalProject\FinalProject\Debug\FinalProject.exe，正在執行完整連結
+  FinalProject.vcxproj -> C:\Users\USER\Desktop\FinalProject\FinalProject\Debug\FinalProject.exe
