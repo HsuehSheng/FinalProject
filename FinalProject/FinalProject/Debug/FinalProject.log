@@ -1,17 +1,3 @@
 ﻿  function_2.c
-c:\c_code\finalproject\source\function_2.c(1): error C2143: 語法錯誤: 遺漏 '{' (在 '常數' 之前)
-c:\c_code\finalproject\source\function_2.c(1): error C2059: 語法錯誤: '常數'
-c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\vcruntime.h(280): error C2146: 語法錯誤: 遺漏 ')' (在識別項 '_StackCookie' 之前)
-c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\vcruntime.h(280): error C2061: 語法錯誤: 識別項 '_StackCookie'
-c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\vcruntime.h(280): error C2059: 語法錯誤: ';'
-c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\vcruntime.h(280): error C2059: 語法錯誤: ')'
-c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\vcruntime.h(288): error C2061: 語法錯誤: 識別項 '__security_cookie'
-c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\vcruntime.h(288): error C2059: 語法錯誤: ';'
-c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt.h(275): error C2081: 'uintptr_t': 在型式參數清單中的名稱不合法
-c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt.h(287): error C2146: 語法錯誤: 遺漏 ')' (在識別項 '_Reserved' 之前)
-c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt.h(287): error C2081: 'uintptr_t': 在型式參數清單中的名稱不合法
-c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt.h(287): error C2061: 語法錯誤: 識別項 '_Reserved'
-c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt.h(287): error C2059: 語法錯誤: ';'
-c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt.h(287): error C2059: 語法錯誤: ')'
-c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stddef.h(53): error C2143: 語法錯誤: 遺漏 '{' (在 '__cdecl' 之前)
-c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdlib.h(164): error C2081: 'uintptr_t': 在型式參數清單中的名稱不合法
+  LINK : 最後的累加連結找不到或未建置 C:\c_code\FinalProject\FinalProject\Debug\FinalProject.exe，正在執行完整連結
+  FinalProject.vcxproj -> C:\c_code\FinalProject\FinalProject\Debug\FinalProject.exe
