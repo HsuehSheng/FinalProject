@@ -1,28 +1,25 @@
-edit 2
-//BlackJack
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#pragma warning (disable:4996)
+#pragma warning (disable : 4996)
 
 const char *suit[4] = { "Hearts", "Diamonds", "Clubs", "Spades" };
 const char *face[13] = { "1","2", "3", "4", "5", "6", "7", "8", "9", "10", "10", "10", "10" };
 
 void shuffle(int wDeck[][13]);
 void deal(const int wDeck[][13], const char *wFace[], const char *wSuit[]);
-void play();
+void play(int *playerMoney);
 int faceResult[52] = { 0 };
 char suitResult[52][10];
 int getTotal(int handStart, int handEnd);
 int getDecision();
-void getResult(int dealerTotal, int playerTotal);
+void getResult(int dealerTotal, int playerTotal, int bet, int *playerMoney);
 void printPoints(int dealerTotal, int playerTotal);
 void rule();
 
-
 int Poker_2() {
+	int playerMoney;
 	int response;
 
 	do {
@@ -31,21 +28,24 @@ int Poker_2() {
 		shuffle(deck);
 		deal(deck, face, suit);
 		rule();
-		play();
 
-		printf("\n-----------------------");
-		printf("\nPlay again?(y:1/n:0):");
+		printf("Enter your money: ");
+		scanf("%d", &playerMoney);
+
+		play(&playerMoney);
+
+		printf("\n-----------------------\n");
+		printf("Player's Money: $%d\n", playerMoney);
+		printf("Play again? (y:0/n:1): ");
 		scanf("%d", &response);
-	} while (response == 1);
+	} while (response == 0 && playerMoney > 0);
 
 	printf("-----------------------\n");
-	printf("Thanks for playing!\n\n");
+	printf("Thanks for playing!\n");
 
 	system("pause");
 	return 0;
 }
-
-
 
 void rule() {
 	printf("-----------------------------welcome to BlackJack------------------------------\n\n");
@@ -56,25 +56,37 @@ void rule() {
 	printf("．如果玩家沒有爆牌且停牌後，就輪到莊家開牌補牌。\n");
 	printf("。莊家必需要幫自己補牌到大於等於 17 以上，接下來的補牌再依雙方點數而定。\n");
 	printf("．如果雙方都沒有爆牌，則點數大的獲勝。(本題中規定點數相同時 dealer 獲勝)\n\n");
+	printf("------------------------------------start--------------------------------------\n");
 }
 
-void play() {
+void play(int *playerMoney) {
+	int bet;
+	int dealerTotal, playerTotal;
+
+	do {
+		printf("Player's Money: $%d\n", *playerMoney);
+		printf("Place your bet: ");
+		scanf("%d", &bet);
+
+		if (bet > *playerMoney || bet <= 0)
+			printf("Error! Your bet must between 1 and %d.\n", *playerMoney);
+	} while (bet > *playerMoney || bet <= 0);
 
 	int hand = 2;
 	int choice;
 	int hit = hand + 2;
 
-	printf("------------------------------------start--------------------------------------\n");
+	printf("-------------------------------------------------------------------------------\n");
 	printf("Dealer : ");
 	for (int i = 0; i < hand; i++)
 		if (i == 0) printf("%2d of %-8s\n", faceResult[i], suitResult[i]);
-	int dealerTotal = getTotal(0, hand);
+	dealerTotal = getTotal(0, hand);
 
 	printf("\nPlayer : ");
 	for (int i = hand; i < hand + 2; i++)
 		if (i == hand) printf("%2d of %-8s\n", faceResult[i], suitResult[i]);
 		else printf("%-2c%2d of %-8s\n\n", '\t', faceResult[i], suitResult[i]);
-	int playerTotal = getTotal(hand, hand + 2);
+	playerTotal = getTotal(hand, hand + 2);
 
 	printf("Dealer first: %d\n", faceResult[0]);
 	printf("Player Total: %d\n\n", playerTotal);
@@ -82,7 +94,7 @@ void play() {
 	do {
 		choice = getDecision();
 		if (choice == 0) {
-			printf("\nPlayer : ");
+			printf("Player : ");
 			for (int i = hand; i < hit; i++)
 				if (i == hand) printf("%2d of %-8s\n", faceResult[i], suitResult[i]);
 				else printf("%-2c%2d of %-8s\n", '\t', faceResult[i], suitResult[i]);
@@ -95,6 +107,7 @@ void play() {
 
 		if (playerTotal > 21) {
 			printf("Busted! Player loses!");
+			*playerMoney -= bet;
 			return;
 		}
 	} while (choice == 0);
@@ -108,27 +121,40 @@ void play() {
 
 			if (dealerTotal > 21) {
 				printPoints(dealerTotal, playerTotal);
-				printf("Busted! Player wins!");
+				printf("Busted! Player wins!\n");
+				printf("-----------------------\n");
+				*playerMoney += bet;
 				return;
 			}
 		}
 	}
 	printPoints(dealerTotal, playerTotal);
-	getResult(dealerTotal, playerTotal);
+	getResult(dealerTotal, playerTotal, bet, playerMoney);
 }
-
-
 
 void printPoints(int dealerTotal, int playerTotal) {
 	printf("Dealer Total: %d\n", dealerTotal);
 	printf("Player Total: %d\n\n", playerTotal);
 }
 
-void getResult(int dealerTotal, int playerTotal) {
-	if (dealerTotal > playerTotal && dealerTotal < 21) printf("Dealer wins!!");
+void getResult(int dealerTotal, int playerTotal, int bet, int *playerMoney) {
+	if (dealerTotal > playerTotal && dealerTotal < 21) {
+		printf("Dealer wins!!");
+		*playerMoney -= bet;
+	}
+
 	else if (dealerTotal > 21) printf("Busted! Player wins!!");
-	else if (dealerTotal == playerTotal) printf("Dealer wins!!");
-	else printf("Player wins!!");
+	else if (dealerTotal == playerTotal) {
+		printf("Dealer wins!!");
+		*playerMoney -= bet;
+	}
+	else {
+		printf("-----------------------\n");
+		printf("Player wins!!");
+		*playerMoney += bet;
+	}
+
+	printf("\nPlayer's Money: $%d", *playerMoney);
 }
 
 int getDecision() {
@@ -149,7 +175,6 @@ int getTotal(int handStart, int handEnd) {
 	return total;
 }
 
-
 void shuffle(int wDeck[][13]) {
 	int card, row, column;
 	for (card = 1; card <= 52; card++) {
@@ -168,7 +193,6 @@ void deal(const int wDeck[][13], const char *wFace[], const char *wSuit[]) {
 		for (row = 0; row <= 3; row++) {
 			for (column = 0; column <= 12; column++) {
 				if (wDeck[row][column] == card) {
-					//printf("%5s of %-8s\n", wFace[column], wSuit[row]); // Output all cards
 					faceResult[card - 1] = atoi(wFace[column]);
 					strncpy(suitResult[card - 1], wSuit[row], sizeof(suitResult[card - 1]) - 1);
 					suitResult[card - 1][sizeof(suitResult[card - 1]) - 1] = '\0';
@@ -177,3 +201,5 @@ void deal(const int wDeck[][13], const char *wFace[], const char *wSuit[]) {
 		}
 	}
 }
+
+
