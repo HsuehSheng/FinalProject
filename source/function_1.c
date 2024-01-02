@@ -73,15 +73,10 @@ float calculate_score(Card cards[], int num_cards) {
 	return score;
 }
 
-void print_cards(Card cards[], int num_cards, int hide_last_card) {
+void print_cards(Card cards[], int num_cards) {
 	for (int i = 0; i < num_cards; ++i) {
-		if (hide_last_card && i == num_cards - 1) {
-			printf("### ");
-		}
-		else {
-			print_card(cards[i]);
-			printf(" ");
-		}
+		print_card(cards[i]);
+		printf(" ");
 	}
 	printf("\n");
 }
@@ -127,11 +122,11 @@ int Poker_1() {
 			float computer_score = calculate_score(computer_cards, num_computer_cards);
 
 			printf("你的牌：");
-			print_cards(player_cards, num_player_cards, 0);
+			print_cards(player_cards, num_player_cards);
 			printf("目前點數：%.1f\n", player_score);
 
 			printf("電腦的牌：");
-			print_cards(computer_cards, num_computer_cards, 1);
+			print_cards(computer_cards, num_computer_cards);
 			printf("\n");
 
 			printf("是否要加牌？(y/n): ");
@@ -166,11 +161,11 @@ int Poker_1() {
 		}
 
 		printf("你的牌：");
-		print_cards(player_cards, num_player_cards, 0);
+		print_cards(player_cards, num_player_cards);
 		printf("總點數：%.1f\n", calculate_score(player_cards, num_player_cards));
 
 		printf("電腦的牌：");
-		print_cards(computer_cards, num_computer_cards, 0);
+		print_cards(computer_cards, num_computer_cards);
 		printf("總點數：%.1f\n", calculate_score(computer_cards, num_computer_cards));
 
 		if (calculate_score(player_cards, num_player_cards) > 10.5) {
